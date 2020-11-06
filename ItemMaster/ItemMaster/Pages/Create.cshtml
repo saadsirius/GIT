@@ -1,0 +1,118 @@
+﻿@page
+@model ItemMaster.Pages.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Item</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Item.ID" class="control-label"></label>
+                <input asp-for="Item.ID" class="form-control" />
+                <span asp-validation-for="Item.ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.ItemCodeID" class="control-label"></label>
+                <input asp-for="Item.ItemCodeID" class="form-control" />
+                <span asp-validation-for="Item.ItemCodeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.Description" class="control-label"></label>
+                <input asp-for="Item.Description" class="form-control" />
+                <span asp-validation-for="Item.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Item.Active" /> @Html.DisplayNameFor(model => model.Item.Active)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.CustomerDescription" class="control-label"></label>
+                <input asp-for="Item.CustomerDescription" class="form-control" />
+                <span asp-validation-for="Item.CustomerDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Item.SalesItem" /> @Html.DisplayNameFor(model => model.Item.SalesItem)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Item.StockItem" /> @Html.DisplayNameFor(model => model.Item.StockItem)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Item.PurchasedItem" /> @Html.DisplayNameFor(model => model.Item.PurchasedItem)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.Barcode" class="control-label"></label>
+                <input asp-for="Item.Barcode" class="form-control" />
+                <span asp-validation-for="Item.Barcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.ManageItemBy" class="control-label"></label>
+                <select asp-for="Item.ManageItemBy" class="form-control">
+                    <option value="1">None</option>
+                    <option value="2">Serial</option>
+                    <option value="3">Batch</option>
+                </select>                <span asp-validation-for="Item.ManageItemBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.MinimumInventory" class="control-label"></label>
+                <input asp-for="Item.MinimumInventory" class="form-control" />
+                <span asp-validation-for="Item.MinimumInventory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.MaximumInventory" class="control-label"></label>
+                <input asp-for="Item.MaximumInventory" class="form-control" />
+                <span asp-validation-for="Item.MaximumInventory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Item.Remarks" class="control-label"></label>
+                <input asp-for="Item.Remarks" class="form-control" />
+                <span asp-validation-for="Item.Remarks" class="text-danger"></span>
+            </div>
+               
+            <div class="form-group">
+                Photo <input type="file" name="photo" accept="image/*" />
+                <br />
+                <input type="submit" value="Upload" />
+                @if (!string.IsNullOrEmpty(@Model.Item.ImagePath))
+                {
+                    <span>
+                        <br />
+                        <img src="~/images/@Model.Item.ImagePath" />
+                    </span>
+                }
+            </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+</form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+@section scripts{
+    <script type="text/javascript">
+
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
